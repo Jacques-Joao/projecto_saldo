@@ -1,0 +1,15 @@
+<Interface>:
+    background_color: 0.3, 0.2, .75, 1
+    Button:
+        pos_hint: {"x":0.4, "top":.55}
+        background_normal: 'play2.png'
+        size_hint: 0.15, 0.15
+        text: 'Iniciar'
+        font_size: 25
+        on_press: root.clicado()
+
+    Image:
+        size_hint: 0.225, .225
+        pos_hint: {"x":0.3875, "top":0.9}
+        source: 'pngwing.com.png'
+        size: self.texture_size
