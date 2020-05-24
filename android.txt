@@ -1,0 +1,3 @@
+title= Utts App
+author = Jacques João
+orientation=portrait

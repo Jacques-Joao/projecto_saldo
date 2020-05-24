@@ -1,15 +1,61 @@
+<CustLabel@Label>:
+    color: 1, 1, 1, 1
+    size_hint_x: .80
+    font_size: 16
+
+<CheckBox>:
+    color: 1, 0, 0, 1
+    size_hint: 0.25, 0.05
+
 <Interface>:
-    background_color: 0.3, 0.2, .75, 1
-    Button:
-        pos_hint: {"x":0.4, "top":.55}
-        background_normal: 'play2.png'
-        size_hint: 0.15, 0.15
-        text: 'Iniciar'
-        font_size: 25
-        on_press: root.clicado()
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'vector-abstract-blue-wave-style-design-background.jpg'
 
     Image:
-        size_hint: 0.225, .225
-        pos_hint: {"x":0.3875, "top":0.9}
+        size_hint: 0.225, 0.225
+        pos_hint: {"x":0.5 - (self.size_hint[0]/2), "top":1}
         source: 'pngwing.com.png'
         size: self.texture_size
+
+    Label:
+        text: 'Credit App'
+        font_size: '25sp'
+        pos_hint: {"x":0.5 - (self.size_hint[0]/2), "y":.25}
+        bold: True
+        italic: True
+        color: [0.1, 0.4, 1, 1]
+
+    Button:
+        id: Iniciar
+        pos_hint: {"x": 0.5 - (self.size_hint[0]/2), "top": 0.65}
+        size_hint: 0.25, 0.05
+        text: 'Iniciar'
+        font_size: 20
+        on_release: root.btn.clicado()
+
+    Button:
+        id: Parar
+        pos_hint: {"x": 0.5 - (self.size_hint[0]/2), "top": 0.575}
+        size_hint: 0.25, 0.05
+        text: 'Parar'
+        font_size: 20
+        on_release: root.parar()
+
+    CustLabel:
+        text: "Unitel"
+        pos_hint: {"x": 0.25, 'top': 0.85}
+    CheckBox:
+        on_active: root.cxa.caixa_unitel(self, self.active)
+        pos_hint: {"x": 0.45, 'y': 0.325}
+
+    CustLabel:
+        text: "Movicel"
+        pos_hint: {"left": 0.85, 'top': 0.85}
+    CheckBox:
+        on_active: root.cxa.caixa_movicel(self, self.active)
+        pos_hint: {"x": 0.2, 'y': 0.325}
+
+
