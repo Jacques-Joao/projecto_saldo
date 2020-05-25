@@ -47,15 +47,17 @@
     CustLabel:
         text: "Unitel"
         pos_hint: {"x": 0.25, 'top': 0.85}
+
     CheckBox:
-        on_active: root.cxa.caixa_unitel(self, self.active)
+        on_active: root.btn.caixa_unitel(self, self.active)
         pos_hint: {"x": 0.45, 'y': 0.325}
 
     CustLabel:
         text: "Movicel"
         pos_hint: {"left": 0.85, 'top': 0.85}
+
     CheckBox:
-        on_active: root.cxa.caixa_movicel(self, self.active)
+        on_active: root.btn.caixa_movicel(self, self.active)
         pos_hint: {"x": 0.2, 'y': 0.325}
 
 

@@ -1,3 +1,6 @@
 title= Utts App
 author = Jacques João
 orientation=portrait
+
+CheckBox:
+        on_active: root.btn.caixa_movicel(self, self.active)
