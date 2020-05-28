@@ -51,8 +51,6 @@ class Btn(Widget):
         self.value_unitel = value_unitel
         self.value_movicel = value_movicel
         if self.value_unitel == self.value_movicel == True:
-            # print('Impossivel selecionar 2 redes.', end='')
-            # print('Por favor, selecione apenas uma rede!')
             txt = 0
             return False
         elif self.value_unitel == self.value_movicel == False:
