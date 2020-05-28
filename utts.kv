@@ -28,6 +28,12 @@
         italic: True
         color: [0.1, 0.4, 1, 1]
 
+    Label:
+        text: 'Jacques ©copyright 2020'
+        font_size: '14sp'
+        pos_hint: {"x":0.62 - self.size_hint[0], "top":0.55}
+        color: [0, 0, 0, 1]
+
     Button:
         id: Iniciar
         pos_hint: {"x": 0.5 - (self.size_hint[0]/2), "top": 0.65}
@@ -49,7 +55,7 @@
         pos_hint: {"x": 0.25, 'top': 0.85}
 
     CheckBox:
-        on_active: root.btn.caixa_unitel(self, self.active)
+        on_active: root.btn.caixa_unitel(self.active)
         pos_hint: {"x": 0.45, 'y': 0.325}
 
     CustLabel:
@@ -57,7 +63,9 @@
         pos_hint: {"left": 0.85, 'top': 0.85}
 
     CheckBox:
-        on_active: root.btn.caixa_movicel(self, self.active)
+        on_active: root.btn.caixa_movicel(self.active)
         pos_hint: {"x": 0.2, 'y': 0.325}
+
+
 
 

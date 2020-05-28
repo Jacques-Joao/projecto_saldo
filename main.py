@@ -2,62 +2,71 @@ from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from random import randint
 from kivy.uix.widget import Widget
+from kivy.uix.popup import Popup
+
+value_unitel = False
+value_movicel = False
+txt = 0
+texto = ''
 
 
 class Btn(Widget):
 
-    def caixa_unitel(self, instance, value):
-        self.value_unitel = value
-        if self.value_unitel:
-            print("Unitel Checkbox Checked")
-        else:
-            print("Unitel Checkbox Unchecked")
-        return self.value_unitel
+    def caixa_unitel(self, value):
+        global value_unitel
+        value_unitel = value
+        print('Unitel', value_unitel)
 
-    def caixa_movicel(self, instance, value):
-        self.value_movicel = value
-        if self.value_movicel:
-            print("Movicel Checkbox Checked")
-        else:
-            print("Movicel Checkbox Unchecked")
-        return self.value_movicel
+    def caixa_movicel(self, value):
+        global value_movicel
+        value_movicel = value
+        print('Movicel', value_movicel)
 
     def clicado(self):
-        self.codigo = ''
-        try:
-            if self.value_unitel == self.value_movicel == True:
-                print('Desmarque uma das redes.')
-        except:
-            print('Por favor, selecione apenas uma rede!')
+        self.codigo = self.validar()
+        self.face = Interface()
+        if not self.codigo:
+            global texto
+            if txt == 0:
+                texto = 'Impossivel selecionar 2 redes. Por favor, selecione apenas uma rede!'
+                print(texto)
+                # msg()
+            elif txt == 1:
+                texto = 'Uma das caixas de marcação deve ser selecionada. Por favor, selecione apenas uma rede!'
+                print(texto)
+                # msg()
+            else:
+                texto = 'Algo de errado não está certo!'
+                print(texto)
+                # msg()
             pass
-        try:
-            if self.value_unitel == self.value_movicel == False:
-                print('Somente uma das caixas de marcação deve ser selecionada')
-        except:
-            print('Antes de inicar o programa, marque as 2 caixas e em seguida desmarque a rede não desejada!')
-            pass
+        else:
+            self.num = randint(100000000000, 999999999999)
+            self.face.iniciar(saldo=self.num, rede=self.codigo)
+            return self.face.iniciar
+
+
+    def validar(self):
+        global value_unitel, value_movicel, txt
+        self.value_unitel = value_unitel
+        self.value_movicel = value_movicel
+        if self.value_unitel == self.value_movicel == True:
+            # print('Impossivel selecionar 2 redes.', end='')
+            # print('Por favor, selecione apenas uma rede!')
+            txt = 0
+            return False
+        elif self.value_unitel == self.value_movicel == False:
+            # print('Uma das caixas de marcação deve ser selecionada')
+            # print('Por favor, selecione apenas uma rede!')
+            txt = 1
+            return False
         else:
             if self.value_unitel and not self.value_movicel:
                 print('Operadora Unitel selecioanado!')
-                self.codigo = str('*100*')
-                return self.codigo
-            elif self.value_movicel and not self.value_unitel:
+                return str('*100*')
+            elif not self.value_unitel and self.value_movicel:
                 print('Operadora Movicel Selecionada')
-                self.codigo = str('*196*')
-                return self.codigo
-        finally:
-            self.num = randint(100000000000, 999999999999)
-            face = Interface()
-            face.iniciar(saldo=self.num, rede=self.codigo)
-            self.bora = face.iniciar
-            return self.bora
-
-    def validar(self):
-        valores = Btn()
-        self.caixa_unitel()
-        self.caixa_movicel()
-        valores.clicado(unitel=self.value_unitel, movicel=bool(self.caixa_movicel))
-        return valores.clicado
+                return str('*196*')
 
 
 class Interface(FloatLayout):
@@ -67,10 +76,15 @@ class Interface(FloatLayout):
         self.saldo = saldo
         self.rede = rede
         print(f'Fui clicado! E o número gerado foi {self.saldo}')
-        print(f'{self.rede}{self.saldo[0]}#')
+        print(f'{self.rede}{self.saldo}#')
 
     def parar(self):
         print('Parar')
+
+def msg():
+    show = Interface()
+    mensagem = Popup(title='Aviso!', content='Hello', pos_hint=(0.5, 0.5), size_hint=(0.4, 0.2))
+    mensagem.open()
 
 
 class UttsApp(App):
@@ -78,6 +92,11 @@ class UttsApp(App):
     def build(self):
         self.icon = 'pngwing.com.png'
         return Interface()
+
+    # def chamada(dt):
+    #     global press
+    #     if press == 0:
+    #         Clock.
 
 
 if __name__ == '__main__':
