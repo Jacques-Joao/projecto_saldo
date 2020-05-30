@@ -40,7 +40,7 @@
         size_hint: 0.25, 0.05
         text: 'Iniciar'
         font_size: 20
-        on_release: root.btn.clicado()
+        on_release: root.temporizador()
 
     Button:
         id: Parar
@@ -65,7 +65,5 @@
     CheckBox:
         on_active: root.btn.caixa_movicel(self.active)
         pos_hint: {"x": 0.2, 'y': 0.325}
-
-
 
 

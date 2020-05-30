@@ -3,6 +3,8 @@ from kivy.uix.floatlayout import FloatLayout
 from random import randint
 from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
+from kivy.clock import Clock
+
 
 value_unitel = False
 value_movicel = False
@@ -22,7 +24,7 @@ class Btn(Widget):
         value_movicel = value
         print('Movicel', value_movicel)
 
-    def clicado(self):
+    def clicado(self, *smt):
         self.codigo = self.validar()
         self.face = Interface()
         if not self.codigo:
@@ -30,7 +32,6 @@ class Btn(Widget):
             if txt == 0:
                 texto = 'Impossivel selecionar 2 redes. Por favor, selecione apenas uma rede!'
                 print(texto)
-                # msg()
             elif txt == 1:
                 texto = 'Uma das caixas de marcação deve ser selecionada. Por favor, selecione apenas uma rede!'
                 print(texto)
@@ -45,7 +46,6 @@ class Btn(Widget):
             self.face.iniciar(saldo=self.num, rede=self.codigo)
             return self.face.iniciar
 
-
     def validar(self):
         global value_unitel, value_movicel, txt
         self.value_unitel = value_unitel
@@ -54,8 +54,6 @@ class Btn(Widget):
             txt = 0
             return False
         elif self.value_unitel == self.value_movicel == False:
-            # print('Uma das caixas de marcação deve ser selecionada')
-            # print('Por favor, selecione apenas uma rede!')
             txt = 1
             return False
         else:
@@ -75,14 +73,22 @@ class Interface(FloatLayout):
         self.rede = rede
         print(f'Fui clicado! E o número gerado foi {self.saldo}')
         print(f'{self.rede}{self.saldo}#')
+        # self.show = msg.id.popup0.tex
+        # self.add_widget(self.show)
 
     def parar(self):
         print('Parar')
+        self.tempo.cancel()
+        # self.para()
 
-def msg():
-    show = Interface()
-    mensagem = Popup(title='Aviso!', content='Hello', pos_hint=(0.5, 0.5), size_hint=(0.4, 0.2))
-    mensagem.open()
+    def temporizador(self, *args):
+        self.tempo = Clock.schedule_interval(self.btn.clicado, 3)
+
+
+    # def msg(self):
+    #     global texto
+    #     self.mensagem = Popup(title='Aviso!', content=texto, pos_hint=(0.5, 0.5), size_hint=(0.4, 0.2))
+    #     self.mensagem.open()
 
 
 class UttsApp(App):
@@ -90,11 +96,6 @@ class UttsApp(App):
     def build(self):
         self.icon = 'pngwing.com.png'
         return Interface()
-
-    # def chamada(dt):
-    #     global press
-    #     if press == 0:
-    #         Clock.
 
 
 if __name__ == '__main__':
